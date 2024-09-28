@@ -33,7 +33,7 @@ export default function ExcelOperations({
     }
 
     try {
-      // 1. workingListFilePath の Excel ファイルを読み込む
+      // workingListFilePath の Excel ファイルを読み込む
       const listWorkbook = new ExcelJS.Workbook();
       const listFileBuffer = await workingListFilePath.arrayBuffer();
       await listWorkbook.xlsx.load(listFileBuffer);
@@ -44,7 +44,7 @@ export default function ExcelOperations({
         return;
       }
 
-      // 2. workingTableFilePath の Excel ファイルを読み込む
+      // workingTableFilePath の Excel ファイルを読み込む
       const tableWorkbook = new ExcelJS.Workbook();
       const tableFileBuffer = await workingTableFilePath.arrayBuffer();
       await tableWorkbook.xlsx.load(tableFileBuffer);
@@ -55,28 +55,28 @@ export default function ExcelOperations({
         return;
       }
 
-      // 3. selectedDate を Date オブジェクトに変換
+      // selectedDate を Date オブジェクトに変換
       const selectedDateObj = new Date(selectedDate);
       if (isNaN(selectedDateObj.getTime())) {
         alert('選択された日付が無効です。');
         return;
       }
 
-      // 4. workingTableFilePath の A2、A3、A4 のカテゴリ名を取得し、trimして小文字に変換
+      // workingTableFilePath の A2、A3、A4 のカテゴリ名を取得し、trimして小文字に変換
       const categories = [
         String(tableWorksheet.getCell('A2').value).trim().toLowerCase(),
         String(tableWorksheet.getCell('A3').value).trim().toLowerCase(),
         String(tableWorksheet.getCell('A4').value).trim().toLowerCase(),
       ];
 
-      // 5. sumMap を初期化（A2、A3、A4 に対応するカテゴリごとの合計値を保持）
+      // sumMap を初期化（A2、A3、A4 に対応するカテゴリごとの合計値を保持）
       const sumMap: { [category: string]: number } = {
         [categories[0]]: 0,
         [categories[1]]: 0,
         [categories[2]]: 0,
       };
 
-      // 6. workingListFilePath のデータを処理
+      // workingListFilePath のデータを処理
       listWorksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
         if (rowNumber > 1) { // ヘッダーをスキップ
           const nameCell = row.getCell(2).value;
@@ -115,7 +115,7 @@ export default function ExcelOperations({
         }
       });
 
-      // 7. sumMap の値を B35、B36、B37 に設定し、60で割る
+      // 分を時間に変換
       const targetRows = [35, 36, 37]; // 対象の行番号
 
       targetRows.forEach((rowNumber, index) => {
@@ -126,7 +126,7 @@ export default function ExcelOperations({
         tableWorksheet.getCell(`B${rowNumber}`).value = truncatedValue;
       });
 
-      // 8. C2 - B35、C3 - B36、C4 - B37 を計算し、C35、C36、C37 に入力
+      // 残り時間計算
       tableWorksheet.getCell('C35').value =
         (Number(tableWorksheet.getCell('C2').value) || 0) - (Number(tableWorksheet.getCell('B35').value) || 0);
       tableWorksheet.getCell('C36').value =
@@ -134,15 +134,15 @@ export default function ExcelOperations({
       tableWorksheet.getCell('C37').value =
         (Number(tableWorksheet.getCell('C4').value) || 0) - (Number(tableWorksheet.getCell('B37').value) || 0);
 
-      // 9. B35/C2、B36/C3、B37/C4 を計算し、D35、D36、D37 に入力
+      // 寄与率計算
       tableWorksheet.getCell('D35').value =
-        (Number(tableWorksheet.getCell('B35').value) || 0) / (Number(tableWorksheet.getCell('C2').value) || 1);
+        (Number(tableWorksheet.getCell('B35').value) || 0) / (Number(tableWorksheet.getCell('C2').value) || 1) * 100;
       tableWorksheet.getCell('D36').value =
-        (Number(tableWorksheet.getCell('B36').value) || 0) / (Number(tableWorksheet.getCell('C3').value) || 1);
+        (Number(tableWorksheet.getCell('B36').value) || 0) / (Number(tableWorksheet.getCell('C3').value) || 1) * 100;
       tableWorksheet.getCell('D37').value =
-        (Number(tableWorksheet.getCell('B37').value) || 0) / (Number(tableWorksheet.getCell('C4').value) || 1);
+        (Number(tableWorksheet.getCell('B37').value) || 0) / (Number(tableWorksheet.getCell('C4').value) || 1) * 100;
 
-      // 10. B35、B36、B37、C35、C36、C37、D35、D36、D37 の値を小数点第一位で切り捨てる
+      // 1B35、B36、B37、C35、C36、C37、D35、D36、D37 の値を小数点第一位で切り捨てる
       const cellsToTruncate = [
         'B35', 'B36', 'B37',
         'C35', 'C36', 'C37',
@@ -155,7 +155,7 @@ export default function ExcelOperations({
         tableWorksheet.getCell(cell).value = truncated;
       });
 
-      // 11. 更新された Excel ファイルを保存（ファイル名を元の workingTableFilePath の名前に設定）
+      // 更新された Excel ファイルを保存（ファイル名を元の workingTableFilePath の名前に設定）
       const buffer = await tableWorkbook.xlsx.writeBuffer();
       saveAs(new Blob([buffer]), workingTableFilePath.name);
 
