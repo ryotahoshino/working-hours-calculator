@@ -1,9 +1,10 @@
-import React from 'react';
-import { StoryObj, Meta } from '@storybook/react';
-import FileSelector from './FIleSelector';
+import { StoryObj, Meta } from "@storybook/react";
+import React from "react";
+
+import FileSelector from "./FIleSelector";
 
 export default {
-  title: 'Components/FileSelector',
+  title: "Components/FileSelector",
   component: FileSelector,
 } as Meta<typeof FileSelector>;
 
@@ -12,7 +13,7 @@ export const Default: StoryObj<typeof FileSelector> = {
   args: {
     onSelect: (id: string, files: FileList | null) => {
       if (files) {
-        console.log('Selected files:', files);
+        console.log("Selected files:", files);
       }
     },
   },

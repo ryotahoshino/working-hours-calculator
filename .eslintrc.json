@@ -9,25 +9,35 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "import/order": [
-      2,
+      "error",
       {
         "alphabetize": {
-          "order": "asc"
-        }
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "groups": ["builtin", "external", "internal"],
+        "newlines-between": "always"
       }
+    ],
+    "react/no-unescaped-entities": "warn",
+    "react/no-unknown-property": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_" }
     ],
     "prettier/prettier": [
       "error",
       {
         "trailingComma": "all",
         "endOfLine": "lf",
-        "semi": false,
-        "singleQuote": true,
+        "semi": true,
+        "singleQuote": false,
         "printWidth": 80,
         "tabWidth": 2
       }

@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react';
-import Calender from './Calender';
+import { Meta, StoryObj } from "@storybook/react";
+
+import Calender from "./Calender";
 
 export default {
-  title: 'Components/Calender',
+  title: "Components/Calender",
   component: Calender,
 } as Meta<typeof Calender>;
 

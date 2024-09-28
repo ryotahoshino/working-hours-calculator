@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from "react";
 import { format } from "date-fns";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface CalendarProps {
   onDateChange?: (formattedDate: string) => void;
@@ -16,7 +16,7 @@ const Calender: React.FC<CalendarProps> = ({ onDateChange }) => {
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
     if (onDateChange && date) {
-      const formattedDate = format(date, 'yyyy/MM/dd');
+      const formattedDate = format(date, "yyyy/MM/dd");
       onDateChange(formattedDate);
     }
   };
@@ -25,7 +25,7 @@ const Calender: React.FC<CalendarProps> = ({ onDateChange }) => {
     const today = new Date();
     setSelectedDate(today);
     if (onDateChange) {
-      const formattedDate = format(today, 'yyyy/MM/dd');
+      const formattedDate = format(today, "yyyy/MM/dd");
       onDateChange(formattedDate);
     }
   };
@@ -33,7 +33,7 @@ const Calender: React.FC<CalendarProps> = ({ onDateChange }) => {
   const handleCancel = () => {
     setSelectedDate(null);
     if (onDateChange) {
-      onDateChange('');
+      onDateChange("");
     }
   };
 
@@ -64,6 +64,6 @@ const Calender: React.FC<CalendarProps> = ({ onDateChange }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Calender;
