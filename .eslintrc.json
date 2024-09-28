@@ -9,9 +9,9 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:storybook/recommended",
-    "prettier"
+    "plugin:storybook/recommended"
   ],
+  "plugins": ["prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "import/order": [
@@ -37,11 +37,12 @@
         "trailingComma": "all",
         "endOfLine": "lf",
         "semi": true,
-        "singleQuote": false,
+        "singleQuote": false, // ダブルクォートを使用
         "printWidth": 80,
         "tabWidth": 2
       }
-    ]
+    ],
+    "no-prototype-builtins": "error" // エラーとして扱う
   },
   "settings": {
     "react": {

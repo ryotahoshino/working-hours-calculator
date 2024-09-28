@@ -1,6 +1,6 @@
 "use client"; // クライアントコンポーネントとして指定
 
-import ExcelJS from "exceljs";
+import { Workbook } from "exceljs";
 import { saveAs } from "file-saver";
 import { useState } from "react";
 
@@ -36,7 +36,7 @@ export default function ExcelOperations({
 
     try {
       // workingListFilePath の Excel ファイルを読み込む
-      const listWorkbook = new ExcelJS.Workbook();
+      const listWorkbook = new Workbook();
       const listFileBuffer = await workingListFilePath.arrayBuffer();
       await listWorkbook.xlsx.load(listFileBuffer);
       const listWorksheet = listWorkbook.getWorksheet(1); // 1つ目のシートを取得
@@ -47,7 +47,7 @@ export default function ExcelOperations({
       }
 
       // workingTableFilePath の Excel ファイルを読み込む
-      const tableWorkbook = new ExcelJS.Workbook();
+      const tableWorkbook = new Workbook();
       const tableFileBuffer = await workingTableFilePath.arrayBuffer();
       await tableWorkbook.xlsx.load(tableFileBuffer);
       const tableWorksheet = tableWorkbook.getWorksheet(1); // 1つ目のシートを取得
@@ -111,7 +111,7 @@ export default function ExcelOperations({
             const category = String(categoryCell).trim().toLowerCase();
             const value = Number(valueCell);
 
-            if (sumMap.hasOwnProperty(category)) {
+            if (Object.prototype.hasOwnProperty.call(sumMap, category)) {
               sumMap[category] += isNaN(value) ? 0 : value;
             }
           }
