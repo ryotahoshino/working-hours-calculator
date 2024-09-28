@@ -9,7 +9,7 @@ interface CalendarProps {
   onDateChange?: (formattedDate: string) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ onDateChange }) => {
+const Calender: React.FC<CalendarProps> = ({ onDateChange }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   // 日付変更ハンドラー
@@ -46,6 +46,7 @@ const Calendar: React.FC<CalendarProps> = ({ onDateChange }) => {
         dateFormat="yyyy/MM/dd"
         className="border p-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholderText="日付を選択してください"
+        id="date"
       />
       <div className="flex space-x-4">
         <button
@@ -65,4 +66,4 @@ const Calendar: React.FC<CalendarProps> = ({ onDateChange }) => {
   );
 }
 
-export default Calendar;
+export default Calender;
