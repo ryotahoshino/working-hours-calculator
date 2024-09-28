@@ -37,12 +37,12 @@
         "trailingComma": "all",
         "endOfLine": "lf",
         "semi": true,
-        "singleQuote": false, // ダブルクォートを使用
+        "singleQuote": false,
         "printWidth": 80,
         "tabWidth": 2
       }
     ],
-    "no-prototype-builtins": "error" // エラーとして扱う
+    "no-prototype-builtins": "error"
   },
   "settings": {
     "react": {
